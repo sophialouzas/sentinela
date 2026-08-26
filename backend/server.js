@@ -55,9 +55,19 @@ app.post("/atendimento", (req, res) => {
 
   const paciente = {
     id: Date.now(),
-    nome: req.body.nome,
-    cpf: req.body.cpf,
-    tipo: req.body.tipo,
+
+    nome: req.body.nome || "",
+    cpf: req.body.cpf || "",
+    "data de nascimento": req.body["data de nascimento"] || "",
+    "nome da mãe": req.body["nome da mãe"] || "",
+    sexo: req.body.sexo || "",
+    "estado civil": req.body["estado civil"] || "",
+    endereço: req.body.endereço || "",
+    telefone: req.body.telefone || "",
+    email: req.body.email || "",
+    contato: req.body.contato || "",
+    tipo: req.body.tipo || "",
+
     status: "triagem",
     createdAt: new Date()
   };
@@ -65,8 +75,11 @@ app.post("/atendimento", (req, res) => {
   db.pacientes.push(paciente);
   writeDB(db);
 
+  console.log("Paciente cadastrado:", paciente);
+
   res.json(paciente);
 });
+
 
 // LISTAR PACIENTES (triagem busca quem foi cadastrado no atendimento)
 app.get("/pacientes", (req, res) => {
