@@ -1,0 +1,329 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+
+  <title>Alta Hospitalar</title>
+
+  <link rel="stylesheet" href="css/style.css">
+
+  <style>
+    .alta-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .btn-voltar {
+      background: #6c757d;
+      color: white;
+      border: none;
+      padding: 10px 16px;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    .btn-voltar:hover {
+      background: #545b62;
+    }
+
+    .paciente-info {
+      background: #f0f4ff;
+      border: 1px solid #d0d8f0;
+      border-radius: 8px;
+      padding: 16px;
+      margin-bottom: 20px;
+    }
+
+    .paciente-info h3 {
+      margin-top: 0;
+    }
+
+    .btn-salvar-alta {
+      background: #dc3545;
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 16px;
+      font-weight: bold;
+      width: 100%;
+    }
+
+    .btn-salvar-alta:hover {
+      background: #b02a37;
+    }
+
+    textarea {
+      min-height: 100px;
+      resize: vertical;
+    }
+
+    .mensagem {
+      margin-top: 15px;
+      padding: 12px;
+      border-radius: 6px;
+      display: none;
+    }
+
+    .sucesso {
+      background: #d4edda;
+      color: #155724;
+    }
+
+    .erro {
+      background: #f8d7da;
+      color: #721c24;
+    }
+  </style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+  <div class="alta-header">
+
+    <h2>🏥 Alta Hospitalar</h2>
+
+    <button class="btn-voltar" onclick="voltar()">
+      ← Voltar ao Médico
+    </button>
+
+  </div>
+
+  <div class="paciente-info">
+
+    <h3>Paciente selecionado</h3>
+
+    <p>
+      <b>Nome:</b>
+      <span id="nomePaciente">Carregando...</span>
+    </p>
+
+    <p>
+      <b>ID:</b>
+      <span id="idPaciente">—</span>
+    </p>
+
+  </div>
+
+  <h3>Informações da Alta</h3>
+
+  <label for="diagnostico">
+    Diagnóstico final
+  </label>
+
+  <input
+    type="text"
+    id="diagnostico"
+    placeholder="Informe o diagnóstico final"
+  >
+
+  <label for="orientacoes">
+    Orientações ao paciente
+  </label>
+
+  <textarea
+    id="orientacoes"
+    placeholder="Digite as orientações para o paciente..."
+  ></textarea>
+
+  <label for="retorno">
+    Retorno
+  </label>
+
+  <input
+    type="text"
+    id="retorno"
+    placeholder="Ex: Retornar em 7 dias"
+  >
+
+  <label for="observacoes">
+    Observações
+  </label>
+
+  <textarea
+    id="observacoes"
+    placeholder="Observações adicionais..."
+  ></textarea>
+
+  <br>
+
+  <button
+    class="btn-salvar-alta"
+    onclick="salvarAlta()"
+  >
+    🏥 Confirmar Alta
+  </button>
+
+  <div id="mensagem" class="mensagem"></div>
+
+</div>
+
+<script>
+
+const params = new URLSearchParams(window.location.search);
+
+const pacienteId = params.get("id");
+const nomePaciente = params.get("nome");
+
+document.getElementById("nomePaciente").innerText =
+  nomePaciente || "Paciente não informado";
+
+document.getElementById("idPaciente").innerText =
+  pacienteId || "—";
+
+
+// VOLTAR PARA A PÁGINA DO MÉDICO
+function voltar() {
+  window.location.href = "medico.html";
+}
+
+
+// MOSTRAR MENSAGEM
+function mostrarMensagem(texto, tipo) {
+
+  const mensagem = document.getElementById("mensagem");
+
+  mensagem.innerText = texto;
+
+  mensagem.className = "mensagem " + tipo;
+
+  mensagem.style.display = "block";
+
+}
+
+
+// SALVAR ALTA
+function salvarAlta() {
+
+  const diagnostico =
+    document.getElementById("diagnostico").value;
+
+  const orientacoes =
+    document.getElementById("orientacoes").value;
+
+  const retorno =
+    document.getElementById("retorno").value;
+
+  const observacoes =
+    document.getElementById("observacoes").value;
+
+
+  if (!pacienteId || !nomePaciente) {
+
+    mostrarMensagem(
+      "Paciente não informado.",
+      "erro"
+    );
+
+    return;
+
+  }
+
+
+  if (!diagnostico.trim()) {
+
+    mostrarMensagem(
+      "Informe o diagnóstico final.",
+      "erro"
+    );
+
+    return;
+
+  }
+
+
+  const dadosAlta = {
+
+    pacienteId: pacienteId,
+
+    paciente: nomePaciente,
+
+    diagnostico: diagnostico,
+
+    orientacoes: orientacoes,
+
+    retorno: retorno,
+
+    observacoes: observacoes
+
+  };
+
+
+  fetch("/alta", {
+
+    method: "POST",
+
+    headers: {
+      "Content-Type": "application/json"
+    },
+
+    body: JSON.stringify(dadosAlta)
+
+  })
+
+  .then(response => {
+
+    return response.json().then(data => ({
+
+      ok: response.ok,
+
+      data: data
+
+    }));
+
+  })
+
+  .then(resultado => {
+
+    if (!resultado.ok) {
+
+      mostrarMensagem(
+        resultado.data.erro || "Erro ao registrar alta.",
+        "erro"
+      );
+
+      return;
+
+    }
+
+
+    mostrarMensagem(
+      "✅ Alta registrada com sucesso!",
+      "sucesso"
+    );
+
+
+    document.querySelector(".btn-salvar-alta").disabled = true;
+
+    document.querySelector(".btn-salvar-alta").innerText =
+      "Alta Registrada";
+
+  })
+
+  .catch(error => {
+
+    console.error(error);
+
+    mostrarMensagem(
+      "Erro de conexão com o servidor.",
+      "erro"
+    );
+
+  });
+
+}
+
+</script>
+
+</body>
+</html>
