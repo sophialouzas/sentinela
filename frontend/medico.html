@@ -44,6 +44,20 @@
       border: 1px solid #ccc;
       border-radius: 4px;
     }
+    .btn-alta {
+  background: #dc3545;
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  margin-top: 8px;
+}
+
+.btn-alta:hover {
+  background: #b02a37;
+}
   </style>
 </head>
 
@@ -110,10 +124,21 @@ function carregar() {
             <p><span class="${t.risco}">${t.risco}</span></p>
             <p><b>Alergia:</b> ${t.alergia || "Nenhuma"}</p>
             <p><b>Observação:</b> ${t.observacao || "Nenhuma"}</p>
-            <div style="display:flex; gap:8px; flex-wrap:wrap;">
-              <button onclick="selecionar(${index})">Atender</button>
-              <button class="btn-tv" onclick="chamarNaTV('${t.nome}')">📺 Chamar na TV</button>
-            </div>
+            <div style="display:flex; flex-direction:column; gap:8px;">
+
+  <button onclick="selecionar(${index})">
+    Atender
+  </button>
+
+  <button class="btn-tv" onclick="chamarNaTV('${t.nome}')">
+    📺 Chamar na TV
+  </button>
+
+  <button class="btn-alta" onclick="abrirAlta(${index})">
+    🏥 Alta
+  </button>
+
+</div>
           </div>
         `;
       });
@@ -185,7 +210,20 @@ function salvar() {
     document.getElementById("obs").value = "";
   });
 }
+function abrirAlta(index) {
+  const t = triagensCarregadas[index];
 
+  if (!t) {
+    alert("Paciente não encontrado.");
+    return;
+  }
+
+  const pacienteId = t.pacienteId || t.id;
+
+  window.location.href =
+    "alta.html?id=" + encodeURIComponent(pacienteId) +
+    "&nome=" + encodeURIComponent(t.nome);
+}
 carregar();
 carregarMedicacoes();
 
