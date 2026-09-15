@@ -3,13 +3,18 @@
 <html lang="pt-BR">
 
 <head>
+
   <meta charset="UTF-8">
 
   <title>Alta Hospitalar</title>
 
   <link rel="stylesheet" href="css/style.css">
 
+  <!-- Biblioteca para gerar PDF -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
   <style>
+
     .alta-header {
       display: flex;
       justify-content: space-between;
@@ -60,6 +65,11 @@
       background: #b02a37;
     }
 
+    .btn-salvar-alta:disabled {
+      background: #999;
+      cursor: not-allowed;
+    }
+
     textarea {
       min-height: 100px;
       resize: vertical;
@@ -81,6 +91,7 @@
       background: #f8d7da;
       color: #721c24;
     }
+
   </style>
 
 </head>
@@ -93,11 +104,17 @@
 
     <h2>🏥 Alta Hospitalar</h2>
 
-    <button class="btn-voltar" onclick="voltar()">
+    <button
+      class="btn-voltar"
+      onclick="voltar()"
+    >
       ← Voltar ao Médico
     </button>
 
   </div>
+
+
+  <!-- INFORMAÇÕES DO PACIENTE -->
 
   <div class="paciente-info">
 
@@ -115,17 +132,22 @@
 
   </div>
 
+
+  <!-- FORMULÁRIO DE ALTA -->
+
   <h3>Informações da Alta</h3>
 
+
   <label for="diagnostico">
-    Diagnóstico final
+    O que o paciente tinha / Diagnóstico final
   </label>
 
   <input
     type="text"
     id="diagnostico"
-    placeholder="Informe o diagnóstico final"
+    placeholder="Informe o que o paciente tinha"
   >
+
 
   <label for="orientacoes">
     Orientações ao paciente
@@ -135,6 +157,7 @@
     id="orientacoes"
     placeholder="Digite as orientações para o paciente..."
   ></textarea>
+
 
   <label for="retorno">
     Retorno
@@ -146,6 +169,7 @@
     placeholder="Ex: Retornar em 7 dias"
   >
 
+
   <label for="observacoes">
     Observações
   </label>
@@ -155,25 +179,45 @@
     placeholder="Observações adicionais..."
   ></textarea>
 
+
   <br>
+
+
+  <!-- BOTÃO QUE SALVA E GERA PDF -->
 
   <button
     class="btn-salvar-alta"
+    id="btnSalvar"
     onclick="salvarAlta()"
   >
-    🏥 Confirmar Alta
+    🏥 Confirmar Alta e Gerar PDF
   </button>
 
-  <div id="mensagem" class="mensagem"></div>
+
+  <div
+    id="mensagem"
+    class="mensagem"
+  ></div>
+
 
 </div>
 
+
 <script>
 
-const params = new URLSearchParams(window.location.search);
+
+// ==========================================
+// DADOS DO PACIENTE
+// ==========================================
+
+const params = new URLSearchParams(
+  window.location.search
+);
 
 const pacienteId = params.get("id");
+
 const nomePaciente = params.get("nome");
+
 
 document.getElementById("nomePaciente").innerText =
   nomePaciente || "Paciente não informado";
@@ -182,28 +226,48 @@ document.getElementById("idPaciente").innerText =
   pacienteId || "—";
 
 
-// VOLTAR PARA A PÁGINA DO MÉDICO
+
+// ==========================================
+// VOLTAR
+// ==========================================
+
 function voltar() {
+
   window.location.href = "medico.html";
+
 }
 
 
-// MOSTRAR MENSAGEM
+
+// ==========================================
+// MENSAGEM
+// ==========================================
+
 function mostrarMensagem(texto, tipo) {
 
-  const mensagem = document.getElementById("mensagem");
+  const mensagem =
+    document.getElementById("mensagem");
 
   mensagem.innerText = texto;
 
-  mensagem.className = "mensagem " + tipo;
+  mensagem.className =
+    "mensagem " + tipo;
 
   mensagem.style.display = "block";
 
 }
 
 
+
+// ==========================================
 // SALVAR ALTA
-function salvarAlta() {
+// ==========================================
+
+async function salvarAlta() {
+
+  const btn =
+    document.getElementById("btnSalvar");
+
 
   const diagnostico =
     document.getElementById("diagnostico").value;
@@ -217,6 +281,9 @@ function salvarAlta() {
   const observacoes =
     document.getElementById("observacoes").value;
 
+
+
+  // VALIDAÇÕES
 
   if (!pacienteId || !nomePaciente) {
 
@@ -242,6 +309,7 @@ function salvarAlta() {
   }
 
 
+
   const dadosAlta = {
 
     pacienteId: pacienteId,
@@ -259,71 +327,376 @@ function salvarAlta() {
   };
 
 
-  fetch("/alta", {
 
-    method: "POST",
+  // DESABILITA O BOTÃO
 
-    headers: {
-      "Content-Type": "application/json"
-    },
+  btn.disabled = true;
 
-    body: JSON.stringify(dadosAlta)
+  btn.innerText = "Salvando alta...";
 
-  })
 
-  .then(response => {
 
-    return response.json().then(data => ({
+  try {
 
-      ok: response.ok,
 
-      data: data
+    // ==========================================
+    // ENVIA PARA O BACKEND
+    // ==========================================
 
-    }));
+    const response = await fetch("/alta", {
 
-  })
+      method: "POST",
 
-  .then(resultado => {
+      headers: {
+        "Content-Type": "application/json"
+      },
 
-    if (!resultado.ok) {
+      body: JSON.stringify(dadosAlta)
 
-      mostrarMensagem(
-        resultado.data.erro || "Erro ao registrar alta.",
-        "erro"
+    });
+
+
+
+    const data = await response.json();
+
+
+
+    if (!response.ok) {
+
+      throw new Error(
+        data.erro || "Erro ao registrar alta."
       );
-
-      return;
 
     }
 
 
+
+    // ==========================================
+    // GERA O PDF
+    // ==========================================
+
+    gerarPDF(dadosAlta);
+
+
+
     mostrarMensagem(
-      "✅ Alta registrada com sucesso!",
+      "✅ Alta registrada e PDF gerado com sucesso!",
       "sucesso"
     );
 
 
-    document.querySelector(".btn-salvar-alta").disabled = true;
+    btn.innerText = "Alta Registrada";
 
-    document.querySelector(".btn-salvar-alta").innerText =
-      "Alta Registrada";
 
-  })
 
-  .catch(error => {
+  } catch (error) {
 
-    console.error(error);
+
+    console.error("Erro na alta:", error);
+
 
     mostrarMensagem(
-      "Erro de conexão com o servidor.",
+      "Erro ao salvar alta: " + error.message,
       "erro"
     );
 
-  });
+
+    btn.disabled = false;
+
+    btn.innerText =
+      "🏥 Confirmar Alta e Gerar PDF";
+
+
+  }
 
 }
+
+
+
+// ==========================================
+// GERAR PDF
+// ==========================================
+
+function gerarPDF(dados) {
+
+
+  // Verifica se a biblioteca carregou
+
+  if (!window.jspdf || !window.jspdf.jsPDF) {
+
+    alert(
+      "A biblioteca de PDF não carregou. Verifique sua conexão com a internet."
+    );
+
+    return;
+
+  }
+
+
+  const { jsPDF } = window.jspdf;
+
+
+  const doc = new jsPDF();
+
+
+
+  // ==========================================
+  // CONFIGURAÇÕES
+  // ==========================================
+
+  const margem = 20;
+
+  const larguraPagina = 210;
+
+  const larguraTexto =
+    larguraPagina - margem * 2;
+
+
+
+  let y = 20;
+
+
+
+  // ==========================================
+  // CABEÇALHO
+  // ==========================================
+
+  doc.setFont("helvetica", "bold");
+
+  doc.setFontSize(18);
+
+  doc.text(
+    "SISTEMA HOSPITALAR",
+    larguraPagina / 2,
+    y,
+    { align: "center" }
+  );
+
+
+  y += 10;
+
+
+  doc.setFontSize(15);
+
+  doc.text(
+    "DOCUMENTO DE ALTA HOSPITALAR",
+    larguraPagina / 2,
+    y,
+    { align: "center" }
+  );
+
+
+  y += 15;
+
+
+
+  // LINHA
+
+  doc.setLineWidth(0.5);
+
+  doc.line(
+    margem,
+    y,
+    larguraPagina - margem,
+    y
+  );
+
+
+  y += 15;
+
+
+
+  // ==========================================
+  // INFORMAÇÕES DO PACIENTE
+  // ==========================================
+
+  doc.setFontSize(12);
+
+  doc.setFont("helvetica", "bold");
+
+  doc.text(
+    "DADOS DO PACIENTE",
+    margem,
+    y
+  );
+
+
+  y += 10;
+
+
+  doc.setFont("helvetica", "normal");
+
+  doc.setFontSize(11);
+
+
+  doc.text(
+    "Nome: " + dados.paciente,
+    margem,
+    y
+  );
+
+
+  y += 8;
+
+
+  doc.text(
+    "ID do paciente: " + dados.pacienteId,
+    margem,
+    y
+  );
+
+
+  y += 8;
+
+
+  doc.text(
+    "Data da alta: " + new Date().toLocaleString("pt-BR"),
+    margem,
+    y
+  );
+
+
+  y += 15;
+
+
+
+  // ==========================================
+  // FUNÇÃO PARA ESCREVER TEXTOS
+  // ==========================================
+
+  function escreverCampo(titulo, texto) {
+
+
+    doc.setFont("helvetica", "bold");
+
+    doc.text(
+      titulo,
+      margem,
+      y
+    );
+
+
+    y += 7;
+
+
+    doc.setFont("helvetica", "normal");
+
+
+    const linhas = doc.splitTextToSize(
+      texto || "Não informado",
+      larguraTexto
+    );
+
+
+    doc.text(
+      linhas,
+      margem,
+      y
+    );
+
+
+    y += linhas.length * 6 + 8;
+
+
+
+    // Se estiver chegando perto do final da página,
+    // cria uma nova página
+
+    if (y > 270) {
+
+      doc.addPage();
+
+      y = 20;
+
+    }
+
+  }
+
+
+
+  // ==========================================
+  // INFORMAÇÕES DA ALTA
+  // ==========================================
+
+  escreverCampo(
+    "O QUE O PACIENTE TINHA / DIAGNÓSTICO:",
+    dados.diagnostico
+  );
+
+
+  escreverCampo(
+    "ORIENTAÇÕES AO PACIENTE:",
+    dados.orientacoes
+  );
+
+
+  escreverCampo(
+    "RETORNO:",
+    dados.retorno
+  );
+
+
+  escreverCampo(
+    "OBSERVAÇÕES:",
+    dados.observacoes
+  );
+
+
+
+  // ==========================================
+  // RODAPÉ
+  // ==========================================
+
+  if (y > 250) {
+
+    doc.addPage();
+
+    y = 20;
+
+  }
+
+
+  y += 10;
+
+
+  doc.setFontSize(10);
+
+  doc.setFont("helvetica", "italic");
+
+
+  doc.text(
+    "Documento gerado pelo Sistema Hospitalar",
+    larguraPagina / 2,
+    y,
+    { align: "center" }
+  );
+
+
+
+  // ==========================================
+  // NOME DO ARQUIVO
+  // ==========================================
+
+  const nomeArquivo =
+    "Alta_" +
+    dados.paciente
+      .replace(/[^a-zA-Z0-9À-ÿ ]/g, "")
+      .replace(/\s+/g, "_") +
+    ".pdf";
+
+
+
+  // ==========================================
+  // DOWNLOAD AUTOMÁTICO
+  // ==========================================
+
+  doc.save(nomeArquivo);
+
+}
+
 
 </script>
 
 </body>
+
 </html>
