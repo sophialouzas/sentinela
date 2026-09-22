@@ -4,122 +4,389 @@
   <meta charset="UTF-8">
   <title>Mídia Indoor - TV</title>
   <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; font-family: Arial, sans-serif; }
+  /* =========================================
+     CONFIGURAÇÃO GERAL
+     ========================================= */
 
-    body {
-      background-color: #5c4033;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      overflow: hidden;
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+
+    font-family: Arial, sans-serif;
+  }
+
+  body {
+    background:
+      radial-gradient(
+        circle at top left,
+        #164d6b 0%,
+        #0b263d 45%,
+        #071c2d 100%
+      );
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    height: 100vh;
+
+    overflow: hidden;
+  }
+
+
+  /* =========================================
+     CONTAINER PRINCIPAL DA TV
+     ========================================= */
+
+  .tv-container {
+    display: flex;
+
+    width: 95vw;
+
+    height: 90vh;
+
+    gap: 18px;
+  }
+
+
+  /* =========================================
+     PAINEL ESQUERDO
+     ========================================= */
+
+  .left-panel {
+    display: flex;
+
+    flex-direction: column;
+
+    width: 35%;
+
+    gap: 18px;
+  }
+
+
+  /* =========================================
+     PAINEL DIREITO
+     ========================================= */
+
+  .right-panel {
+    display: flex;
+
+    flex-direction: column;
+
+    width: 65%;
+
+    gap: 18px;
+  }
+
+
+  /* =========================================
+     CAIXAS
+     ========================================= */
+
+  .box {
+    background:
+      linear-gradient(
+        145deg,
+        #f8fcfd,
+        #eaf5f7
+      );
+
+    border: 2px solid #8fcbd1;
+
+    border-radius: 16px;
+
+    padding: 20px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+
+    align-items: center;
+
+    text-align: center;
+
+    box-shadow:
+      0 10px 30px rgba(0, 0, 0, 0.22),
+      inset 0 0 20px rgba(25, 191, 196, 0.05);
+
+    position: relative;
+
+    overflow: hidden;
+  }
+
+  .box::before {
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    left: 0;
+    right: 0;
+
+    height: 4px;
+
+    background:
+      linear-gradient(
+        90deg,
+        #19bfc4,
+        #167c91,
+        #19bfc4
+      );
+  }
+
+
+  /* =========================================
+     TÍTULOS
+     ========================================= */
+
+  .box-title {
+    color: #123b5d;
+
+    font-size: 2.2vw;
+
+    font-weight: bold;
+
+    text-transform: uppercase;
+
+    text-shadow:
+      0 1px 2px rgba(18, 59, 93, 0.12);
+
+    margin-bottom: 12px;
+  }
+
+
+  /* =========================================
+     LOCAL / CONSULTÓRIO
+     ========================================= */
+
+  .local-box {
+    flex: 1;
+  }
+
+  .local-number {
+    color: #167c91;
+
+    font-size: 9vw;
+
+    font-weight: bold;
+
+    line-height: 1;
+
+    text-shadow:
+      0 0 18px rgba(25, 191, 196, 0.22);
+  }
+
+  .local-type {
+    color: #456875;
+
+    font-size: 1.8vw;
+
+    font-weight: bold;
+
+    margin-top: 6px;
+
+    letter-spacing: 1px;
+  }
+
+
+  /* =========================================
+     HISTÓRICO
+     ========================================= */
+
+  .history-box {
+    flex: 1;
+
+    justify-content: flex-start;
+
+    align-items: flex-start;
+  }
+
+  .history-box .box-title {
+    font-size: 1.8vw;
+
+    align-self: center;
+
+    margin-bottom: 15px;
+  }
+
+  #history-list {
+    list-style: none;
+
+    width: 100%;
+
+    color: #167c91;
+
+    font-size: 1.5vw;
+
+    font-weight: bold;
+
+    text-align: left;
+  }
+
+  #history-list li {
+    margin-bottom: 8px;
+
+    border-bottom:
+      1px solid #c8dfe3;
+
+    padding-bottom: 7px;
+
+    transition: all 0.2s ease;
+  }
+
+  #history-list li:last-child {
+    border-bottom: none;
+  }
+
+
+  /* =========================================
+     PACIENTE ATUAL
+     ========================================= */
+
+  .patient-box {
+    flex: 3;
+
+    background:
+      linear-gradient(
+        145deg,
+        #ffffff,
+        #edf9fa
+      );
+
+    border-color: #19bfc4;
+
+    box-shadow:
+      0 12px 35px rgba(0, 0, 0, 0.25),
+      0 0 25px rgba(25, 191, 196, 0.10);
+  }
+
+  .patient-name {
+    color: #123b5d;
+
+    font-size: 6.5vw;
+
+    font-weight: bold;
+
+    line-height: 1.2;
+
+    word-break: break-word;
+
+    text-shadow:
+      0 2px 5px rgba(18, 59, 93, 0.12);
+  }
+
+
+  /* =========================================
+     LOGO / IDENTIFICAÇÃO
+     ========================================= */
+
+  .logo-box {
+    flex: 1;
+
+    background:
+      linear-gradient(
+        135deg,
+        #0f405e,
+        #123b5d
+      );
+
+    border-color: #19bfc4;
+  }
+
+  .logo-text {
+    color: #ffffff;
+
+    font-size: 3.5vw;
+
+    font-weight: bold;
+
+    text-transform: uppercase;
+
+    letter-spacing: 2px;
+
+    text-shadow:
+      0 0 12px rgba(25, 191, 196, 0.55);
+  }
+
+
+  /* =========================================
+     ANIMAÇÃO DE CHAMADA
+     ========================================= */
+
+  @keyframes flash {
+
+    0%,
+    100% {
+      opacity: 1;
     }
+
+    50% {
+      opacity: 0.35;
+    }
+
+  }
+
+  .flash {
+    animation:
+      flash 0.5s ease 3;
+  }
+
+
+  /* =========================================
+     RESPONSIVIDADE
+     ========================================= */
+
+  @media (max-width: 700px) {
 
     .tv-container {
-      display: flex;
-      width: 95vw;
-      height: 90vh;
-      gap: 18px;
-    }
+      width: 96vw;
 
-    .left-panel {
-      display: flex;
-      flex-direction: column;
-      width: 35%;
-      gap: 18px;
-    }
+      height: 94vh;
 
-    .right-panel {
-      display: flex;
-      flex-direction: column;
-      width: 65%;
-      gap: 18px;
+      gap: 10px;
     }
 
     .box {
-      background-color: #63d4f4;
-      border: 6px solid #b39b82;
-      border-radius: 15px;
-      padding: 20px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+      padding: 12px;
+
+      border-radius: 12px;
     }
 
     .box-title {
-      color: #ffffff;
-      font-size: 2.2vw;
-      font-weight: bold;
-      text-transform: uppercase;
-      text-shadow: 1px 1px 2px rgba(0,0,0,0.4);
-      margin-bottom: 12px;
+      font-size: 4vw;
     }
 
-    /* Painel esquerdo - local (guichê ou consultório) */
-    .local-box { flex: 1; }
-    .local-number {
-      color: #d12c2c;
-      font-size: 9vw;
-      font-weight: bold;
-      line-height: 1;
-    }
-    .local-type {
-      color: #555;
-      font-size: 1.8vw;
-      font-weight: bold;
-      margin-top: 6px;
-    }
-
-    /* Histórico */
-    .history-box {
-      flex: 1;
-      justify-content: flex-start;
-      align-items: flex-start;
-    }
-    .history-box .box-title { font-size: 1.8vw; align-self: center; }
-    #history-list {
-      list-style: none;
-      width: 100%;
-      color: #d12c2c;
-      font-size: 1.5vw;
-      font-weight: bold;
-      text-align: left;
-    }
-    #history-list li {
-      margin-bottom: 8px;
-      border-bottom: 1px solid rgba(0,0,0,0.1);
-      padding-bottom: 5px;
-    }
-
-    /* Painel direito - nome do paciente */
-    .patient-box { flex: 3; }
-    .patient-name {
-      color: #d12c2c;
-      font-size: 6.5vw;
-      font-weight: bold;
-      line-height: 1.2;
-      word-break: break-word;
-    }
-
-    /* Logo */
-    .logo-box { flex: 1; }
-    .logo-text {
-      color: #8c3b7a;
+    .history-box .box-title {
       font-size: 3.5vw;
-      font-weight: bold;
-      text-transform: uppercase;
     }
 
-    /* Animação de flash quando chama */
-    @keyframes flash {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.3; }
+    .local-number {
+      font-size: 13vw;
     }
-    .flash { animation: flash 0.5s ease 3; }
-  </style>
+
+    .local-type {
+      font-size: 3vw;
+    }
+
+    #history-list {
+      font-size: 2.5vw;
+    }
+
+    .patient-name {
+      font-size: 8vw;
+    }
+
+    .logo-text {
+      font-size: 5vw;
+    }
+
+  }
+</style>
 </head>
 <body>
 
