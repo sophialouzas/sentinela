@@ -1,29 +1,82 @@
-```css
 /* =========================================
-   HOSPITAL DE NEUROLOGIA
-   ESTILO GERAL DO SISTEMA
+   CONFIGURAÇÃO GERAL
    ========================================= */
 
 * {
   box-sizing: border-box;
 }
 
-html {
-  scroll-behavior: smooth;
-}
-
 body {
-  font-family: Arial, Helvetica, sans-serif;
-  margin: 0;
-  min-height: 100vh;
+  font-family: Arial, sans-serif;
+
+  background:
+    radial-gradient(
+      circle at top left,
+      #dff7f8 0%,
+      #f3f8fa 42%,
+      #e8f1f5 100%
+    );
 
   color: #243746;
 
-  background:
-    radial-gradient(circle at 15% 10%, rgba(25, 191, 196, 0.12), transparent 30%),
-    radial-gradient(circle at 85% 90%, rgba(29, 88, 124, 0.10), transparent 32%),
-    linear-gradient(135deg, #f5fafc 0%, #edf5f8 50%, #f9fcfd 100%);
+  margin: 0;
+
+  min-height: 100vh;
 }
+
+
+/* =========================================
+   CONTAINER GERAL
+   ========================================= */
+
+.container {
+  width: 90%;
+
+  max-width: 900px;
+
+  margin: 30px auto;
+
+  background:
+    linear-gradient(
+      145deg,
+      #ffffff,
+      #f7fbfc
+    );
+
+  padding: 25px;
+
+  border-radius: 14px;
+
+  border: 1px solid #d5e5e9;
+
+  box-shadow:
+    0 10px 30px rgba(11, 38, 61, 0.10);
+
+  position: relative;
+
+  overflow: hidden;
+}
+
+.container::before {
+  content: "";
+
+  position: absolute;
+
+  top: 0;
+  left: 0;
+  right: 0;
+
+  height: 4px;
+
+  background:
+    linear-gradient(
+      90deg,
+      #123b5d,
+      #19bfc4,
+      #167c91
+    );
+}
+
 
 /* =========================================
    TÍTULOS
@@ -31,75 +84,245 @@ body {
 
 h1,
 h2,
-h3,
-h4 {
+h3 {
   color: #123b5d;
 }
 
-h1 {
-  font-size: 32px;
-  margin-bottom: 25px;
-}
-
 h2 {
-  font-size: 27px;
-  margin-bottom: 20px;
+  margin-top: 0;
 }
 
-h3 {
-  font-size: 21px;
-}
 
 /* =========================================
-   CONTAINER PRINCIPAL
+   LOGIN
    ========================================= */
 
-.container {
-  width: 90%;
-  max-width: 900px;
+body:has(#usuario) {
+  display: flex;
 
-  margin: 35px auto;
+  justify-content: center;
 
-  padding: 30px;
+  align-items: center;
 
-  background: rgba(255, 255, 255, 0.96);
+  min-height: 100vh;
 
-  border: 1px solid rgba(25, 191, 196, 0.18);
+  padding: 20px;
 
-  border-radius: 16px;
+  background:
+    radial-gradient(
+      circle at 20% 10%,
+      rgba(25, 191, 196, 0.16),
+      transparent 35%
+    ),
+    radial-gradient(
+      circle at 90% 90%,
+      rgba(22, 124, 145, 0.14),
+      transparent 35%
+    ),
+    linear-gradient(
+      135deg,
+      #e8f6f8,
+      #f5f9fa,
+      #e8f1f5
+    );
+}
+
+
+/* cartão do login */
+
+body:has(#usuario) .container {
+  width: 100%;
+
+  max-width: 430px;
+
+  margin: 0;
+
+  padding: 38px 35px;
+
+  text-align: center;
+
+  border-radius: 18px;
+
+  background:
+    linear-gradient(
+      145deg,
+      #ffffff,
+      #f4fafb
+    );
+
+  border: 1px solid #cfe3e7;
 
   box-shadow:
-    0 12px 35px rgba(11, 38, 61, 0.10),
-    0 0 25px rgba(25, 191, 196, 0.06);
-
-  position: relative;
-  overflow: hidden;
+    0 20px 45px rgba(11, 38, 61, 0.14),
+    0 0 25px rgba(25, 191, 196, 0.07);
 }
 
-/* detalhe tecnológico no topo do container */
 
-.container::before {
-  content: "";
-  position: absolute;
+/* detalhe superior do login */
 
-  top: 0;
-  left: 0;
+body:has(#usuario) .container::before {
+  height: 5px;
 
+  background:
+    linear-gradient(
+      90deg,
+      #123b5d,
+      #19bfc4,
+      #123b5d
+    );
+}
+
+
+/* logo */
+
+body:has(#usuario) .logo {
+  display: block;
+
+  width: 115px;
+
+  height: 115px;
+
+  object-fit: contain;
+
+  margin: 0 auto 18px;
+
+  filter:
+    drop-shadow(
+      0 5px 10px
+      rgba(25, 191, 196, 0.18)
+    );
+}
+
+
+/* título do login */
+
+body:has(#usuario) h1,
+body:has(#usuario) h2 {
+  color: #123b5d;
+
+  margin-top: 0;
+
+  margin-bottom: 25px;
+
+  letter-spacing: 0.3px;
+}
+
+
+/* campos do login */
+
+body:has(#usuario) input {
   width: 100%;
-  height: 3px;
 
-  background: linear-gradient(
-    90deg,
-    #123b5d,
-    #19bfc4,
-    #1d587c,
-    #19bfc4,
-    #123b5d
-  );
+  padding: 13px 14px;
+
+  margin-top: 12px;
+
+  border-radius: 9px;
+
+  border: 1px solid #c8dce1;
+
+  background: #fbfdfe;
+
+  color: #243746;
+
+  font-size: 16px;
+
+  outline: none;
+
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    background 0.2s ease;
 }
+
+body:has(#usuario) input:focus {
+  border-color: #19bfc4;
+
+  background: #ffffff;
+
+  box-shadow:
+    0 0 0 3px rgba(25, 191, 196, 0.12);
+}
+
+body:has(#usuario) input::placeholder {
+  color: #8a9da5;
+}
+
+
+/* botão entrar */
+
+body:has(#usuario) button {
+  width: 100%;
+
+  padding: 13px;
+
+  margin-top: 20px;
+
+  border: none;
+
+  border-radius: 9px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #123b5d,
+      #167c91
+    );
+
+  color: white;
+
+  font-size: 16px;
+
+  font-weight: bold;
+
+  cursor: pointer;
+
+  box-shadow:
+    0 6px 15px rgba(18, 59, 93, 0.18);
+
+  transition: all 0.25s ease;
+}
+
+body:has(#usuario) button:hover {
+  background:
+    linear-gradient(
+      135deg,
+      #0b263d,
+      #126b7c
+    );
+
+  transform: translateY(-2px);
+
+  box-shadow:
+    0 9px 20px rgba(18, 59, 93, 0.25);
+}
+
+body:has(#usuario) button:active {
+  transform: translateY(0);
+}
+
+
+/* mensagem de erro do login */
+
+body:has(#usuario) #erro {
+  color: #a52f35;
+
+  background: #fff1f2;
+
+  border: 1px solid #efc5c8;
+
+  border-radius: 8px;
+
+  padding: 9px 12px;
+
+  margin-top: 15px;
+
+  font-size: 14px;
+}
+
 
 /* =========================================
-   INPUTS / SELECT / TEXTAREA / BUTTON
+   CAMPOS GERAIS
    ========================================= */
 
 input,
@@ -108,19 +331,18 @@ textarea,
 button {
   width: 100%;
 
-  padding: 13px 14px;
+  padding: 12px;
 
   margin-top: 10px;
 
-  border-radius: 9px;
+  border-radius: 8px;
+
+  border: 1px solid #cbdde3;
 
   font-size: 16px;
-  font-family: inherit;
 
-  transition: all 0.25s ease;
+  font-family: Arial, sans-serif;
 }
-
-/* campos */
 
 input,
 select,
@@ -129,17 +351,8 @@ textarea {
 
   color: #243746;
 
-  border: 1px solid #c9d9df;
-
   outline: none;
 }
-
-input::placeholder,
-textarea::placeholder {
-  color: #8799a4;
-}
-
-/* foco */
 
 input:focus,
 select:focus,
@@ -147,13 +360,8 @@ textarea:focus {
   border-color: #19bfc4;
 
   box-shadow:
-    0 0 0 3px rgba(25, 191, 196, 0.12),
-    0 3px 12px rgba(25, 191, 196, 0.08);
+    0 0 0 3px rgba(25, 191, 196, 0.10);
 }
-
-/* =========================================
-   TEXTAREA
-   ========================================= */
 
 textarea {
   min-height: 100px;
@@ -161,16 +369,18 @@ textarea {
   resize: vertical;
 }
 
+
 /* =========================================
-   BOTÕES
+   BOTÕES GERAIS
    ========================================= */
 
 button {
-  background: linear-gradient(
-    135deg,
-    #123b5d,
-    #1d587c
-  );
+  background:
+    linear-gradient(
+      135deg,
+      #123b5d,
+      #167c91
+    );
 
   color: white;
 
@@ -180,172 +390,95 @@ button {
 
   font-weight: bold;
 
-  box-shadow:
-    0 5px 14px rgba(18, 59, 93, 0.20);
+  transition: all 0.25s ease;
 }
 
 button:hover {
-  background: linear-gradient(
-    135deg,
-    #0b263d,
-    #164b6b
-  );
+  background:
+    linear-gradient(
+      135deg,
+      #0b263d,
+      #126b7c
+    );
 
-  transform: translateY(-2px);
-
-  box-shadow:
-    0 8px 20px rgba(18, 59, 93, 0.27);
+  transform: translateY(-1px);
 }
 
-button:active {
-  transform: translateY(0);
-}
 
 /* =========================================
    CARDS
    ========================================= */
 
 .card {
-  border: 1px solid #d8e5e9;
+  border: 1px solid #d5e5e9;
 
   padding: 18px;
 
   margin: 15px 0;
 
-  border-radius: 12px;
+  border-radius: 10px;
 
-  background: #ffffff;
+  background:
+    linear-gradient(
+      145deg,
+      #ffffff,
+      #f7fbfc
+    );
 
   box-shadow:
-    0 4px 12px rgba(11, 38, 61, 0.07);
+    0 4px 12px rgba(11, 38, 61, 0.06);
 
-  transition: all 0.25s ease;
-
-  position: relative;
+  transition: all 0.2s ease;
 }
 
 .card:hover {
-  border-color: rgba(25, 191, 196, 0.35);
+  border-color: #b5dce0;
 
   box-shadow:
-    0 7px 18px rgba(11, 38, 61, 0.10);
+    0 7px 17px rgba(11, 38, 61, 0.09);
 }
 
-/* pequena linha lateral nos cards */
-
-.card::before {
-  content: "";
-
-  position: absolute;
-
-  left: 0;
-  top: 12px;
-  bottom: 12px;
-
-  width: 3px;
-
-  background: #19bfc4;
-
-  border-radius: 0 4px 4px 0;
-}
 
 /* =========================================
    CLASSIFICAÇÃO DE RISCO
    ========================================= */
 
 .verde {
-  display: inline-block;
-
-  background: #299b70;
+  background: #2e9d72;
 
   color: white;
 
-  padding: 6px 12px;
+  padding: 5px 10px;
 
-  border-radius: 20px;
+  border-radius: 6px;
 
   font-weight: bold;
-
-  font-size: 14px;
-
-  box-shadow:
-    0 3px 10px rgba(41, 155, 112, 0.20);
 }
 
 .amarelo {
-  display: inline-block;
+  background: #e4b62f;
 
-  background: #dbaE2b;
+  color: #243746;
 
-  color: white;
+  padding: 5px 10px;
 
-  padding: 6px 12px;
-
-  border-radius: 20px;
+  border-radius: 6px;
 
   font-weight: bold;
-
-  font-size: 14px;
-
-  box-shadow:
-    0 3px 10px rgba(219, 174, 43, 0.20);
 }
 
 .vermelho {
-  display: inline-block;
-
-  background: #d84b50;
+  background: #d94a4a;
 
   color: white;
 
-  padding: 6px 12px;
+  padding: 5px 10px;
 
-  border-radius: 20px;
-
-  font-weight: bold;
-
-  font-size: 14px;
-
-  box-shadow:
-    0 3px 10px rgba(216, 75, 80, 0.20);
-}
-
-/* =========================================
-   LINKS
-   ========================================= */
-
-a {
-  color: #137c91;
-
-  text-decoration: none;
+  border-radius: 6px;
 
   font-weight: bold;
-
-  transition: 0.2s ease;
 }
 
-a:hover {
-  color: #0b5264;
-
-  text-decoration: underline;
-}
-
-/* =========================================
-   LABELS
-   ========================================= */
-
-label {
-  display: block;
-
-  margin-top: 14px;
-  margin-bottom: 5px;
-
-  color: #365263;
-
-  font-weight: bold;
-
-  font-size: 14px;
-}
 
 /* =========================================
    TABELAS
@@ -360,12 +493,9 @@ table {
 
   background: white;
 
-  border-radius: 12px;
+  border-radius: 10px;
 
   overflow: hidden;
-
-  box-shadow:
-    0 4px 15px rgba(11, 38, 61, 0.07);
 }
 
 th {
@@ -373,135 +503,21 @@ th {
 
   color: white;
 
-  padding: 13px;
+  padding: 12px;
 
   text-align: left;
-
-  font-size: 14px;
 }
 
 td {
-  padding: 12px;
+  padding: 11px 12px;
 
-  border-bottom: 1px solid #e2ecef;
-
-  color: #365263;
+  border-bottom: 1px solid #e1ecef;
 }
 
 tr:hover td {
   background: #f1fafb;
 }
 
-/* =========================================
-   MENSAGENS
-   ========================================= */
-
-.erro {
-  color: #a52f35;
-
-  background: #fff1f2;
-
-  border: 1px solid #efc5c8;
-
-  padding: 10px;
-
-  border-radius: 8px;
-
-  margin-top: 10px;
-}
-
-.sucesso {
-  color: #17684d;
-
-  background: #edf9f4;
-
-  border: 1px solid #bfe4d4;
-
-  padding: 10px;
-
-  border-radius: 8px;
-
-  margin-top: 10px;
-}
-
-/* =========================================
-   LINHA SEPARADORA
-   ========================================= */
-
-hr {
-  border: none;
-
-  height: 1px;
-
-  background: linear-gradient(
-    90deg,
-    transparent,
-    rgba(25, 191, 196, 0.45),
-    transparent
-  );
-
-  margin: 25px 0;
-}
-
-/* =========================================
-   BOTÃO ATENDER
-   ========================================= */
-
-button.atender {
-  background: linear-gradient(
-    135deg,
-    #123b5d,
-    #19aeb3
-  );
-}
-
-button.atender:hover {
-  background: linear-gradient(
-    135deg,
-    #0b263d,
-    #128b90
-  );
-}
-
-/* =========================================
-   BOTÃO CHAMAR NA TV
-   ========================================= */
-
-button.tv {
-  background: linear-gradient(
-    135deg,
-    #405a9b,
-    #6378c9
-  );
-}
-
-button.tv:hover {
-  background: linear-gradient(
-    135deg,
-    #304579,
-    #5065b4
-  );
-}
-
-/* =========================================
-   BOTÃO ALTA
-   ========================================= */
-
-button.alta {
-  background: linear-gradient(
-    135deg,
-    #237b70,
-    #36a88f
-  );
-}
-
-button.alta:hover {
-  background: linear-gradient(
-    135deg,
-    #185d55,
-    #278c76
-  );
-}
 
 /* =========================================
    RESPONSIVIDADE
@@ -512,39 +528,21 @@ button.alta:hover {
   .container {
     width: 94%;
 
-    margin: 20px auto;
-
     padding: 20px;
-
-    border-radius: 13px;
   }
 
-  h1 {
-    font-size: 26px;
-  }
-
-  h2 {
-    font-size: 23px;
-  }
-
-  input,
-  select,
-  textarea,
-  button {
-    font-size: 15px;
-  }
-
-  .card {
+  body:has(#usuario) {
     padding: 15px;
   }
 
-  table {
-    font-size: 14px;
+  body:has(#usuario) .container {
+    padding: 30px 22px;
   }
 
-  th,
-  td {
-    padding: 9px;
+  body:has(#usuario) .logo {
+    width: 95px;
+
+    height: 95px;
   }
+
 }
-```
