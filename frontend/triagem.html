@@ -5,61 +5,237 @@
 <title>Triagem</title>
 <link rel="stylesheet" href="style.css">
 <style>
+
+  /* =========================================
+     BOTÃO CHAMAR NA TV
+     ========================================= */
+
   .btn-tv {
-    background: #28a745;
+    background: linear-gradient(
+      135deg,
+      #237b70,
+      #36a88f
+    );
+
     color: white;
+
     border: none;
-    padding: 8px 14px;
-    border-radius: 5px;
+
+    padding: 9px 15px;
+
+    border-radius: 8px;
+
     cursor: pointer;
+
     font-size: 14px;
+
+    font-weight: bold;
+
     margin-left: 8px;
+
+    transition: all 0.25s ease;
+
+    box-shadow:
+      0 4px 10px rgba(35, 123, 112, 0.16);
   }
-  .btn-tv:hover { background: #1e7e34; }
+
+  .btn-tv:hover {
+    background: linear-gradient(
+      135deg,
+      #185d55,
+      #278c76
+    );
+
+    transform: translateY(-1px);
+
+    box-shadow:
+      0 6px 14px rgba(35, 123, 112, 0.25);
+  }
+
+
+  /* =========================================
+     ÁREA DA FILA DE PACIENTES
+     ========================================= */
 
   .pacientes-fila {
     margin-bottom: 30px;
-    background: #f0f4ff;
-    border-radius: 8px;
-    padding: 16px;
-    border: 1px solid #d0d8f0;
+
+    background:
+      linear-gradient(
+        135deg,
+        #f1fafb,
+        #f7fbfc
+      );
+
+    border-radius: 10px;
+
+    padding: 18px;
+
+    border: 1px solid #cfe3e7;
+
+    border-left: 4px solid #19bfc4;
+
+    box-shadow:
+      0 5px 14px rgba(11, 38, 61, 0.06);
   }
+
+
+  /* =========================================
+     TÍTULO DA FILA
+     ========================================= */
+
   .pacientes-fila h3 {
     margin-top: 0;
-    color: #333;
+
+    color: #123b5d;
+
     display: flex;
+
     justify-content: space-between;
+
     align-items: center;
+
+    gap: 10px;
   }
+
   .pacientes-fila h3 span {
     font-size: 13px;
+
     font-weight: normal;
-    color: #666;
+
+    color: #607985;
+
+    background: #e8f3f5;
+
+    padding: 5px 9px;
+
+    border-radius: 6px;
   }
+
+
+  /* =========================================
+     ITEM DO PACIENTE
+     ========================================= */
+
   .fila-item {
     display: flex;
+
     align-items: center;
+
     justify-content: space-between;
+
+    gap: 12px;
+
     background: white;
-    border-radius: 6px;
-    padding: 10px 14px;
-    margin-bottom: 8px;
-    border: 1px solid #dce4ff;
+
+    border-radius: 9px;
+
+    padding: 12px 15px;
+
+    margin-bottom: 9px;
+
+    border: 1px solid #d7e6ea;
+
+    box-shadow:
+      0 2px 7px rgba(11, 38, 61, 0.04);
+
+    transition: all 0.2s ease;
   }
-  .fila-item strong { font-size: 15px; }
-  .fila-item small { color: #888; font-size: 12px; }
+
+  .fila-item:hover {
+    border-color: #a9d9dd;
+
+    box-shadow:
+      0 5px 12px rgba(11, 38, 61, 0.08);
+
+    transform: translateY(-1px);
+  }
+
+  .fila-item strong {
+    font-size: 15px;
+
+    color: #123b5d;
+  }
+
+  .fila-item small {
+    color: #718892;
+
+    font-size: 12px;
+  }
+
+
+  /* =========================================
+     BOTÃO ABRIR TV
+     ========================================= */
+
   .btn-abrir-tv {
     display: inline-block;
-    background: #17a2b8;
+
+    background: linear-gradient(
+      135deg,
+      #167c91,
+      #19bfc4
+    );
+
     color: white;
-    padding: 8px 14px;
-    border-radius: 5px;
+
+    padding: 9px 15px;
+
+    border-radius: 8px;
+
     font-size: 14px;
+
+    font-weight: bold;
+
     text-decoration: none;
+
     cursor: pointer;
+
     border: none;
+
+    transition: all 0.25s ease;
+
+    box-shadow:
+      0 4px 10px rgba(25, 191, 196, 0.16);
   }
-  .btn-abrir-tv:hover { background: #117a8b; }
+
+  .btn-abrir-tv:hover {
+    background: linear-gradient(
+      135deg,
+      #105e70,
+      #129fa4
+    );
+
+    transform: translateY(-1px);
+
+    box-shadow:
+      0 6px 14px rgba(25, 191, 196, 0.25);
+  }
+
+
+  /* =========================================
+     RESPONSIVIDADE
+     ========================================= */
+
+  @media (max-width: 600px) {
+
+    .fila-item {
+      flex-direction: column;
+
+      align-items: flex-start;
+    }
+
+    .btn-tv,
+    .btn-abrir-tv {
+      margin-left: 0;
+
+      width: 100%;
+
+      text-align: center;
+    }
+
+  }
+
 </style>
 </head>
 
