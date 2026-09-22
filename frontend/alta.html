@@ -13,86 +13,210 @@
   <!-- Biblioteca para gerar PDF -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
-  <style>
+  ```css
+<style>
 
-    .alta-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 20px;
-      gap: 10px;
-      flex-wrap: wrap;
-    }
+  /* =========================================
+     CABEÇALHO DA ALTA
+     ========================================= */
 
-    .btn-voltar {
-      background: #6c757d;
-      color: white;
-      border: none;
-      padding: 10px 16px;
-      border-radius: 6px;
-      cursor: pointer;
-    }
+  .alta-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 
-    .btn-voltar:hover {
-      background: #545b62;
-    }
+    margin-bottom: 25px;
+    gap: 12px;
+    flex-wrap: wrap;
 
-    .paciente-info {
-      background: #f0f4ff;
-      border: 1px solid #d0d8f0;
-      border-radius: 8px;
-      padding: 16px;
-      margin-bottom: 20px;
-    }
+    padding-bottom: 18px;
 
-    .paciente-info h3 {
-      margin-top: 0;
-    }
+    border-bottom: 1px solid #d8e5e9;
+  }
 
-    .btn-salvar-alta {
-      background: #dc3545;
-      color: white;
-      border: none;
-      padding: 12px 20px;
-      border-radius: 6px;
-      cursor: pointer;
-      font-size: 16px;
-      font-weight: bold;
-      width: 100%;
-    }
+  .alta-header h2 {
+    margin: 0;
+    color: #123b5d;
+  }
 
-    .btn-salvar-alta:hover {
-      background: #b02a37;
-    }
 
-    .btn-salvar-alta:disabled {
-      background: #999;
-      cursor: not-allowed;
-    }
+  /* =========================================
+     BOTÃO VOLTAR
+     ========================================= */
 
-    textarea {
-      min-height: 100px;
-      resize: vertical;
-    }
+  .btn-voltar {
+    background: #e8f0f3;
 
-    .mensagem {
-      margin-top: 15px;
-      padding: 12px;
-      border-radius: 6px;
-      display: none;
-    }
+    color: #123b5d;
 
-    .sucesso {
-      background: #d4edda;
-      color: #155724;
-    }
+    border: 1px solid #cbdde3;
 
-    .erro {
-      background: #f8d7da;
-      color: #721c24;
-    }
+    padding: 10px 17px;
 
-  </style>
+    border-radius: 8px;
+
+    cursor: pointer;
+
+    font-weight: bold;
+
+    transition: all 0.25s ease;
+  }
+
+  .btn-voltar:hover {
+    background: #dcebee;
+
+    color: #0b263d;
+
+    transform: translateY(-1px);
+
+    box-shadow: 0 4px 10px rgba(11, 38, 61, 0.10);
+  }
+
+
+  /* =========================================
+     INFORMAÇÕES DO PACIENTE
+     ========================================= */
+
+  .paciente-info {
+    background:
+      linear-gradient(
+        135deg,
+        #f1fafb,
+        #f7fbfc
+      );
+
+    border: 1px solid #cfe3e7;
+
+    border-left: 4px solid #19bfc4;
+
+    border-radius: 10px;
+
+    padding: 18px;
+
+    margin-bottom: 22px;
+
+    box-shadow:
+      0 4px 12px rgba(11, 38, 61, 0.06);
+  }
+
+  .paciente-info h3 {
+    margin-top: 0;
+
+    color: #123b5d;
+
+    font-size: 20px;
+  }
+
+
+  /* =========================================
+     BOTÃO SALVAR ALTA
+     ========================================= */
+
+  .btn-salvar-alta {
+    background: linear-gradient(
+      135deg,
+      #237b70,
+      #36a88f
+    );
+
+    color: white;
+
+    border: none;
+
+    padding: 13px 20px;
+
+    border-radius: 9px;
+
+    cursor: pointer;
+
+    font-size: 16px;
+
+    font-weight: bold;
+
+    width: 100%;
+
+    margin-top: 15px;
+
+    box-shadow:
+      0 5px 14px rgba(35, 123, 112, 0.20);
+
+    transition: all 0.25s ease;
+  }
+
+  .btn-salvar-alta:hover {
+    background: linear-gradient(
+      135deg,
+      #185d55,
+      #278c76
+    );
+
+    transform: translateY(-2px);
+
+    box-shadow:
+      0 8px 18px rgba(35, 123, 112, 0.28);
+  }
+
+  .btn-salvar-alta:active {
+    transform: translateY(0);
+  }
+
+  .btn-salvar-alta:disabled {
+    background: #9aa9ae;
+
+    cursor: not-allowed;
+
+    transform: none;
+
+    box-shadow: none;
+  }
+
+
+  /* =========================================
+     TEXTAREA
+     ========================================= */
+
+  textarea {
+    min-height: 100px;
+
+    resize: vertical;
+  }
+
+
+  /* =========================================
+     MENSAGENS
+     ========================================= */
+
+  .mensagem {
+    margin-top: 15px;
+
+    padding: 12px 14px;
+
+    border-radius: 8px;
+
+    display: none;
+
+    font-weight: bold;
+  }
+
+  .mensagem.sucesso {
+    background: #edf9f4;
+
+    color: #17684d;
+
+    border: 1px solid #bfe4d4;
+  }
+
+  .mensagem.erro {
+    background: #fff1f2;
+
+    color: #a52f35;
+
+    border: 1px solid #efc5c8;
+  }
+
+</style>
+```
+
 
 </head>
 
