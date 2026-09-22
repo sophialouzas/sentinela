@@ -3,62 +3,216 @@
 <head>
   <link rel="stylesheet" href="css/style.css">
   <style>
-    .btn-tv {
-      background: #28a745;
-      color: white;
-      border: none;
-      padding: 8px 14px;
-      border-radius: 5px;
-      cursor: pointer;
-      font-size: 14px;
-      margin-top: 8px;
-    }
-    .btn-tv:hover { background: #1e7e34; }
-    .btn-abrir-tv {
-      background: #17a2b8;
-      color: white;
-      border: none;
-      padding: 8px 16px;
-      border-radius: 5px;
-      font-size: 14px;
-      cursor: pointer;
-    }
-    .btn-abrir-tv:hover { background: #117a8b; }
-    .consultorio-input {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 16px;
-      background: #f0f4ff;
-      padding: 10px 14px;
-      border-radius: 6px;
-      border: 1px solid #d0d8f0;
-    }
-    .consultorio-input label { font-weight: bold; }
-    .consultorio-input input {
-      width: 60px;
-      text-align: center;
-      font-size: 18px;
-      font-weight: bold;
-      padding: 4px 8px;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-    }
-    .btn-alta {
-  background: #dc3545;
-  color: white;
-  border: none;
-  padding: 8px 14px;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 14px;
-  margin-top: 8px;
-}
 
-.btn-alta:hover {
-  background: #b02a37;
-}
-  </style>
+  /* =========================================
+     BOTÃO CHAMAR NA TV
+     ========================================= */
+
+  .btn-tv {
+    background: linear-gradient(
+      135deg,
+      #237b70,
+      #36a88f
+    );
+
+    color: white;
+
+    border: none;
+
+    padding: 9px 15px;
+
+    border-radius: 8px;
+
+    cursor: pointer;
+
+    font-size: 14px;
+
+    font-weight: bold;
+
+    margin-top: 8px;
+
+    transition: all 0.25s ease;
+
+    box-shadow:
+      0 4px 10px rgba(35, 123, 112, 0.16);
+  }
+
+  .btn-tv:hover {
+    background: linear-gradient(
+      135deg,
+      #185d55,
+      #278c76
+    );
+
+    transform: translateY(-1px);
+
+    box-shadow:
+      0 6px 14px rgba(35, 123, 112, 0.24);
+  }
+
+
+  /* =========================================
+     BOTÃO ABRIR TV
+     ========================================= */
+
+  .btn-abrir-tv {
+    background: linear-gradient(
+      135deg,
+      #167c91,
+      #19bfc4
+    );
+
+    color: white;
+
+    border: none;
+
+    padding: 9px 16px;
+
+    border-radius: 8px;
+
+    font-size: 14px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition: all 0.25s ease;
+
+    box-shadow:
+      0 4px 10px rgba(25, 191, 196, 0.16);
+  }
+
+  .btn-abrir-tv:hover {
+    background: linear-gradient(
+      135deg,
+      #105e70,
+      #129fa4
+    );
+
+    transform: translateY(-1px);
+
+    box-shadow:
+      0 6px 14px rgba(25, 191, 196, 0.25);
+  }
+
+
+  /* =========================================
+     CAMPO DO CONSULTÓRIO
+     ========================================= */
+
+  .consultorio-input {
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    margin-bottom: 18px;
+
+    background:
+      linear-gradient(
+        135deg,
+        #f1fafb,
+        #f7fbfc
+      );
+
+    padding: 12px 15px;
+
+    border-radius: 9px;
+
+    border: 1px solid #cfe3e7;
+
+    border-left: 4px solid #19bfc4;
+
+    box-shadow:
+      0 4px 12px rgba(11, 38, 61, 0.05);
+  }
+
+  .consultorio-input label {
+    font-weight: bold;
+
+    color: #123b5d;
+  }
+
+  .consultorio-input input {
+    width: 60px;
+
+    text-align: center;
+
+    font-size: 18px;
+
+    font-weight: bold;
+
+    padding: 5px 8px;
+
+    border: 1px solid #c5d8de;
+
+    border-radius: 7px;
+
+    background: white;
+
+    color: #123b5d;
+
+    outline: none;
+
+    transition: all 0.2s ease;
+  }
+
+  .consultorio-input input:focus {
+    border-color: #19bfc4;
+
+    box-shadow:
+      0 0 0 3px rgba(25, 191, 196, 0.12);
+  }
+
+
+  /* =========================================
+     BOTÃO ALTA
+     ========================================= */
+
+  .btn-alta {
+    background: linear-gradient(
+      135deg,
+      #237b70,
+      #36a88f
+    );
+
+    color: white;
+
+    border: none;
+
+    padding: 9px 15px;
+
+    border-radius: 8px;
+
+    cursor: pointer;
+
+    font-size: 14px;
+
+    font-weight: bold;
+
+    margin-top: 8px;
+
+    transition: all 0.25s ease;
+
+    box-shadow:
+      0 4px 10px rgba(35, 123, 112, 0.16);
+  }
+
+  .btn-alta:hover {
+    background: linear-gradient(
+      135deg,
+      #185d55,
+      #278c76
+    );
+
+    transform: translateY(-1px);
+
+    box-shadow:
+      0 6px 14px rgba(35, 123, 112, 0.25);
+  }
+
+</style>
 </head>
 
 <body>
