@@ -15,7 +15,9 @@
 function login() {
   fetch("/login", {
     method: "POST",
-    headers: {"Content-Type": "application/json"},
+    headers: {
+      "Content-Type": "application/json"
+    },
     body: JSON.stringify({
       usuario: usuario.value,
       senha: senha.value
@@ -23,9 +25,33 @@ function login() {
   })
   .then(r => r.json())
   .then(data => {
-    if(data.tipo === "triagem") location.href = "triagem.html";
-    if(data.tipo === "medico") location.href = "medico.html";
-    if(data.tipo === "atendimento") location.href = "atendimento.html";
+
+    if (!data.sucesso) {
+      alert(data.mensagem || "Usuário ou senha incorretos.");
+      return;
+    }
+
+    if (data.usuario.tipo === "triagem") {
+      location.href = "triagem.html";
+      return;
+    }
+
+    if (data.usuario.tipo === "medico") {
+      location.href = "medico.html";
+      return;
+    }
+
+    if (data.usuario.tipo === "atendimento") {
+      location.href = "atendimento.html";
+      return;
+    }
+
+    alert("Tipo de usuário não reconhecido.");
+
+  })
+  .catch(error => {
+    console.error("Erro no login:", error);
+    alert("Não foi possível conectar ao servidor.");
   });
 }
 </script>
