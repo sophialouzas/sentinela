@@ -116,12 +116,12 @@ app.get("/", (req, res) => {
 
 app.post("/login", (req, res) => {
   try {
-    const { usuario, senha, tipo } = req.body;
+    const { usuario, senha } = req.body;
 
-    if (!usuario || !senha || !tipo) {
+    if (!usuario || !senha) {
       return res.status(400).json({
         sucesso: false,
-        mensagem: "Preencha usuário, senha e tipo de acesso."
+        mensagem: "Preencha usuário e senha."
       });
     }
 
@@ -130,15 +130,14 @@ app.post("/login", (req, res) => {
     const encontrado = db.usuarios.find(user => {
       return (
         String(user.usuario).toLowerCase() === String(usuario).toLowerCase() &&
-        String(user.senha) === String(senha) &&
-        String(user.tipo).toLowerCase() === String(tipo).toLowerCase()
+        String(user.senha) === String(senha)
       );
     });
 
     if (!encontrado) {
       return res.status(401).json({
         sucesso: false,
-        mensagem: "Usuário, senha ou tipo de acesso incorreto."
+        mensagem: "Usuário ou senha incorretos."
       });
     }
 
@@ -152,6 +151,7 @@ app.post("/login", (req, res) => {
         tipo: encontrado.tipo
       }
     });
+
   } catch (error) {
     console.error("Erro no login:", error);
 
